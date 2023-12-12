@@ -2,23 +2,23 @@ const PLAYERS = [
   'Spiderman',
   'Captain America',
   'Wonderwoman',
-  // "Popcorn",
-  // "Gemwoman",
-  // "Bolt",
-  // "Antwoman",
-  // "Mask",
-  // "Tiger",
-  // "Captain",
-  // "Catwoman",
-  // "Fish",
-  // "Hulk",
-  // "Ninja",
-  // "Black Cat",
-  // "Volverine",
-  // "Thor",
-  // "Slayer",
-  // "Vader",
-  // "Slingo"
+  "Popcorn",
+  "Gemwoman",
+  "Bolt",
+  "Antwoman",
+  "Mask",
+  "Tiger",
+  "Captain",
+  "Catwoman",
+  "Fish",
+  "Hulk",
+  "Ninja",
+  "Black Cat",
+  "Volverine",
+  "Thor",
+  "Slayer",
+  "Vader",
+  "Slingo"
 ];
 
 // Player Class
@@ -28,32 +28,34 @@ class Player {
     this.id = id;
     this.name = name;
     this.type = type;
-    this.image = '../images/super-' + (id + 1) + '.png';
+    this.image = 'images/super-' + (id + 1) + '.png';
     console.log(this.image);
-
     this.strength = this.getRandomStrength();
     this.type = type;
   }
   // getting random strength
   getRandomStrength = () => {
-    return Math.ceil(Math.random() * 100);
+    return Math.ceil(Math.random() * 100)
   };
 
   // Progression 2: Create a player for displaying
   view = () => {
     // Accumulate HTML template
     // Type your code here
-    let player = document.createElement('div');
-    player.innerHTML = `
-    <div class="player" data-id="${this.id}">
-    <img src="${this.image}">
-    <div class="name">${this.name}</div>
-    <div class="strength">${this.strength}</div>
-    </div>
-    `;
-    if (this.selected == true) player.classList.add('selected');
-    console.log(player);
-    return player;
+    let player = document.createElement('div')
+    player.classList.add('player')
+    player.setAttribute('data-id', this.id)   
+    let name = document.createElement('div')
+    name.textContent = this.name
+    let img = document.createElement('img')
+    img.setAttribute('src', this.image)
+    let strength = document.createElement('div')
+    strength.textContent = this.strength
+    strength.classList.add('strength')
+    player.append(img, name, strength)
+    if (this.selected == true) player.classList.add('selected')
+    console.log(player)
+    return player
   };
 }
 
@@ -65,6 +67,7 @@ class Superwar {
     // Use Map method to loop through players argument and create new players
     // Type your code here
     this.players = players.map((player, i) => {
+      console.log(i)
       let type = i % 2 == 0 ? 'hero' : 'villain';
       return new Player(i, player, type);
     });
